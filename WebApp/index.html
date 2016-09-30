@@ -1,0 +1,24 @@
+<script type='text/javascript' src='scripts/KnockoutJavascript.js'></script>
+<p> First name: <strong><input data-bind="value: firstName"></input></strong></p>
+<p> Last name: <strong><input data-bind="value: lastName"></input></strong></p>
+
+<p> Full name: <strong><span data-bind="text: fullName"></input></strong></p>
+
+<h2> Friends</h2>
+
+<script type="text/javascript">
+	function friend(name) {
+		return {
+			name : ko.observable(name)
+		};
+	}
+	var viewModel = {
+			firstName : ko.observable("Bert"),
+			lastName : ko.observable("Miller"),
+			friends : ko.observableArray([new friend("Daniel"), new friend("Elise")])
+	};
+	viewModel.fullName = ko.dependentObservable(function() {
+		return this.firstName() + " " + this.lastName();
+	}, viewModel);
+	ko.applyBindings(viewModel)
+</script>
