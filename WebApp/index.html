@@ -1,24 +1,69 @@
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 <script type='text/javascript' src='scripts/KnockoutJavascript.js'></script>
-<p> First name: <strong><input data-bind="value: firstName"></input></strong></p>
-<p> Last name: <strong><input data-bind="value: lastName"></input></strong></p>
+<ul data-bind="foreach: products">
+  <li>
+      <h1>
+        <span data-bind="text: displayName"></span>
+      </h1>
+      <span data-bind="text: description"></span><br>
+      <img width="300px" height="300px" data-bind="attr:{src: primaryFullImageUrl}"/><br>  
+      List Price: <span data-bind="text: listPrice"></span><br>
+      Sale Price: <span data-bind="text: salePrice"></span>
+  </li>
+  <button data-bind="click: $root.addProductToCart">Add To Cart</button>
+</ul>
+<h1>
+Cart Items
+</h1>
+<ul data-bind="foreach: cart">
+  <li>
+      <h3>
+        <span data-bind="text: displayName"></span>
+      </h3>
+  </li>
+</ul>
+<h3 data-bind="visible: cartTotal() > 0">
+  Cart Total: $<span data-bind="text: cartTotal().toFixed(2)"/>
+</h3>
 
-<p> Full name: <strong><span data-bind="text: fullName"></input></strong></p>
 
-<h2> Friends</h2>
 
-<script type="text/javascript">
-	function friend(name) {
-		return {
-			name : ko.observable(name)
-		};
-	}
-	var viewModel = {
-			firstName : ko.observable("Bert"),
-			lastName : ko.observable("Miller"),
-			friends : ko.observableArray([new friend("Daniel"), new friend("Elise")])
-	};
-	viewModel.fullName = ko.dependentObservable(function() {
-		return this.firstName() + " " + this.lastName();
-	}, viewModel);
-	ko.applyBindings(viewModel)
+
+
+
+<script>
+function Product(displayName,description,id,listPrice,salePrice,primaryFullImageUrl) {
+	this.displayName = ko.observable(displayName);
+  this.description = ko.observable(description);
+  this.id = ko.observable(id);
+  this.listPrice = listPrice;
+  this.salePrice = salePrice;
+  this.primaryFullImageUrl = ko.observable(primaryFullImageUrl);
+};
+function productViewModel() {
+  var self = this;
+  self.products = ko.observableArray();
+
+  self.cart = ko.observableArray();
+  self.addProductToCart = function(product) {
+      self.cart.push(product)
+  } 
+  self.cartTotal = ko.computed(function() {
+  		var total = 0;
+			for(var i = 0; i < self.cart().length; i++) {
+      		total += self.cart()[i].salePrice;
+      }
+      return total;
+  });
+  $.getJSON("https://crossorigin.me/https://ccstore-z5ia.oracleoutsourcing.com/ccstoreui/v1/products?totalResults=true&totalExpandedResults=true&catalogId=&offset=0&limit=60&categoryId=HomePageFeatured&includeChildren=true&storePriceListGroupId=defaultPriceGroup", function(json) {
+    var jsonData = JSON.stringify(json);
+    var items = json.items;
+    for(var i = 0; i < items.length; i += 1) {
+      var imageUrl = "https://ccstore-z5ia.oracleoutsourcing.com" + items[i].primaryFullImageURL;
+      self.products.push(new Product(items[i].displayName, items[i].description, items[i].id, items[i].listPrice,items[i].salePrice, imageUrl));
+    }
+});
+}
+ko.applyBindings(new productViewModel());
 </script>
+
