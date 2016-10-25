@@ -1,38 +1,65 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Knockout Main Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css" media="screen">
+</head>
+<body>
+
 <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 <script type='text/javascript' src='scripts/KnockoutJavascript.js'></script>
 
-<body>
-<ul data-bind="foreach: products">
+<div id="container"> 
 
-  <li>
-      <h1>
-        <span data-bind="text: displayName"></span>
-      </h1>
-      <span data-bind="text: description"></span><br>
-      <img width="300px" height="300px" data-bind="attr:{src: primaryFullImageUrl}"/><br>  
-      List Price: <span data-bind="text: listPrice"></span><br>
-      Sale Price: <span data-bind="text: salePrice"></span>
-  </li>
-  <button data-bind="click: $root.addProductToCart">Add To Cart</button>
-</ul>
-<h1>
-Cart Items
-</h1>
-<ul data-bind="foreach: cart">
-  <li>
-      <h3>
-        <span data-bind="text: displayName"></span>
-      </h3>
-  </li>
-</ul>
-<h3 data-bind="visible: cartTotal() > 0">
-  Cart Total: $<span data-bind="text: cartTotal().toFixed(2)"/>
-</h3>
+  <div id="header">
+    <div class="headtitle">Knockout Main Page</div>
+  </div>
+
+  <div id="menu"> 
+    <ul>
+      <li><a href="index.html#" title="">HOME</a></li>
+      <li><a href="store.html#" title="">STORE</a></li>
+    </ul>
+  </div>
+
+
+  <div id="content"> 
+
+    <div id="insidecontent"> <br>
+      <h1>Welcome</h1>
+
+      <p>
+    Stuff goes here
+   <br><br>
+    </p>
+          <h1>Stuff</h1>
+
+      <p>
+    Even more stuff goes here
+   <br><br>
+    </p>
+     <p>
+    Even more stuff
+    <br><br>
+    </p>
+     
+    </div>
+
+    
+
+    <div style="clear: both;"></div>
+
+  </div>
+
+
+
+  <div id="footer"> <span>Copyright © 2016 | All Rights Reserved  </span> 
+  </div>
+
+</div>
 </body>
-<script type="text/javascript" src="scripts/ViewModel.js"></script>
 </html>
-
-
 
 
