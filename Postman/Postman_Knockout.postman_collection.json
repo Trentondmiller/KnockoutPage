@@ -1,0 +1,35 @@
+{
+	"id": "8b4894c5-b325-4afd-9812-1abd830a0fdb",
+	"name": "Postman_Knockout",
+	"description": "",
+	"order": [
+		"55f5ee92-61fe-f112-d7fd-603ef4c8f548"
+	],
+	"folders": [],
+	"timestamp": 1478294680296,
+	"owner": "239107",
+	"public": false,
+	"requests": [
+		{
+			"id": "55f5ee92-61fe-f112-d7fd-603ef4c8f548",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "https://ccadmin-z5ia.oracleoutsourcing.com/ccadmin/v1/login",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "8b4894c5-b325-4afd-9812-1abd830a0fdb",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Admin Login (Oracle Cloud)",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1478294680295,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "grant_type=password&username=jconaty@commerce-architects.com&password=hespeT3s"
+		}
+	]
+}
