@@ -13,6 +13,7 @@ function CommerceItem(product,quantity) {
 }
 function productViewModel() {
   var self = this;
+  self.checkoutMessage = ko.observable();
   self.products = ko.observableArray([]);
   self.firstName = ko.observable();
   self.lastName = ko.observable();
@@ -26,17 +27,7 @@ function productViewModel() {
   self.CCTypes = ko.observableArray(['Visa','MasterCard']);
   self.months = ko.observableArray(['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']);
   self.years = ko.observableArray(['2016','2017','2018','2019','2020','2021','2022','2023','2024','2025']);
-  self.checkout = function() {
-    console.log("User checked out with credentials:");
-    console.log("First Name: " + self.firstName);
-    console.log("Last Name: " + self.lastName);
-    console.log("Address: " + self.address);
-    console.log("CCType: " + self.CCType);
-    console.log("CCNumber: " + self.CCNumber);
-    console.log("CCExpiration Month: " + self.CCExpMonth);
-    console.log("CCExpiration Year: " + self.CCExpYear);
-    console.log("CVCCode: " + self.CVCCode);
-  }
+
   self.addProductToCart = function(product) {
     productPresent = false;
     for(var i = 0; i < self.cart().length; i++) {
@@ -71,6 +62,28 @@ function productViewModel() {
     }
     self.products.valueHasMutated();
 });
+
+    self.checkout = function() {
+    console.log("User checked out with credentials:");
+    console.log("First Name: " + self.firstName);
+    console.log("Last Name: " + self.lastName);
+    console.log("Address: " + self.address);
+    console.log("CCType: " + self.CCType);
+    console.log("CCNumber: " + self.CCNumber);
+    console.log("CCExpiration Month: " + self.CCExpMonth);
+    console.log("CCExpiration Year: " + self.CCExpYear);
+    console.log("CVCCode: " + self.CVCCode);
+    console.log("Total Amount Paid: $" + self.cartTotal());
+    self.cart.removeAll();
+    self.firstName("");
+    self.lastName("");
+    self.address("");
+    self.CCType("Visa");
+    self.CCNumber("");
+    self.CCExpMonth("");
+    self.CCExpYear("");
+    self.CVCCode("");
+  }
 }
 ko.observable.fn.toString = function() {
         return ko.toJSON(this(), null, 2);
