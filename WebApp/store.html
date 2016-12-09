@@ -19,46 +19,63 @@
 
   <div id="menu"> 
     <ul>
-      <li><a href="index.html#" title="">HOME</a></li>
       <li><a href="store.html#" title="">STORE</a></li>
-      <li><a href="cart.html#" title="">CART</a></li>
     </ul>
   </div>
 
-
   <div id="content"> 
-
     <div id="insidecontent"> <br>
-
-      <h1>Store</h1>
-      <ul data-bind="foreach: products">
-        <li>
-            <h1><span data-bind="text: displayName"></span></h1>
-            <span data-bind="text: description"></span><br>
-            <img width="100px" height="100px" data-bind="attr:{src: primaryFullImageUrl}"/><br>  
-            <p>List Price: <span data-bind="text: listPrice"></span></p>
-            <p>Sale Price: <span data-bind="text: salePrice"></span></p>
-        </li>
-        <button data-bind="click: $root.addProductToCart">Add To Cart</button>
-      </ul>
-      <h1>Cart Items</h1>
-      <ul data-bind="foreach: cart">
-        <li>
-            <p>
-              <span data-bind="text: displayName"></span>
-            </p>
-        </li>
-      </ul>
-      <h3 data-bind="visible: cartTotal() > 0">
-        Cart Total: $<span data-bind="text: cartTotal().toFixed(2)"/>
-      </h3>
-     
+      <h1><span data-bind="text: name"></span></h1>
+        <h1>Store</h1>
+        <ul data-bind="foreach: products">
+          <div>
+              <h2><span data-bind="text: displayName"></span></h2><br>                
+              <img width="100px" height="100px" data-bind="attr:{src: primaryFullImageUrl}"/><br>
+              <span data-bind="text: description"></span><br>  
+              <p>List Price: <span data-bind="text: listPrice"></span></p>
+              <p>Sale Price: <span data-bind="text: salePrice"></span></p>
+          </div>
+          <button data-bind="click: $root.addProductToCart">Add To Cart</button>
+        </ul>     
+    </div>
+    <div data-bind="visible: cart().length > 0">
+    <h1>Cart Items</h1>
+    <table border="0" width="100%">     
+        <tr>
+          <td><h3>Product Name</h3></td>
+          <td><h3>Unit Price</h3></td>
+          <td><h3>Unit Quantity</h3></td>
+          <td><h3>Total Price</h3></td>
+          <td></td>
+        </tr>
+        <tbody data-bind="foreach: cart">
+          <tr>
+            <td data-bind="text: product().displayName"></td>
+            <td> $<span data-bind="text: product().salePrice"></span></td>
+            <td data-bind="text: quantity"></span></td>
+            <td> $<span data-bind="text: totalPrice().toFixed(2)"></span></td>
+            <td><button data-bind="click: $root.removeProductFromCart">Remove</button></td>             
+          </tr> 
+        </tbody>
+    </table>
+      <div id="checkout">
+        <h1>Checkout Form</h1>
+        <div class="checkout">
+          <p>First name:<input data-bind="value: firstName"></input></p>
+          <p>Last name:<input data-bind="value: lastName"></input></p>
+          <p>Address:<input data-bind="value: address"></input></p>
+          <p>Credit Card Type:<select data-bind="options: CCTypes, value: CCType"></select></p>
+          <p>Credit Card Number:<input data-bind="value: CCNumber" maxlength="16"></input>
+          CVC Code: <input style="width:50px;" data-bind="value: CVCCode" maxlength="3"></input></p>
+          <p>Exp Month:<select data-bind="options: months, value: CCExpMonth"></select>
+          Exp Year:<select data-bind="options: years, value: CCExpYear"></select></p>
+          <h3>Cart Total: $<span data-bind="text: cartTotal().toFixed(2)"></span></h3>
+          <button data-bind="click: checkout">Checkout</button>
+        </div>
+      </div>     
     </div>
 
-    
-
     <div style="clear: both;"></div>
-
   </div>
 
 
@@ -71,4 +88,3 @@
 </html>
 
 <script type="text/javascript" src="scripts/ViewModel.js"></script>
-
