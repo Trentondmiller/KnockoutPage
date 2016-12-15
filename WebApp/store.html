@@ -17,11 +17,8 @@
     <div class="headtitle">Knockout Store</div>
   </div>
 
-  <div id="menu"> 
-    <ul>
-      <li><a href="store.html#" title="">STORE</a></li>
-    </ul>
-  </div>
+  <div id="menu">
+  </div> 
 
   <div id="content"> 
     <div id="insidecontent"> <br>
@@ -46,51 +43,53 @@
   </div>
   <br>
   <br>
-  <div id="cartItems"> 
-    <div id="insideCartItems"> <br>
-      <h1>Cart Items</h1>
-      <table border="0" width="100%">     
-        <tr>
-          <td><h3>Product Name</h3></td>
-          <td><h3>Unit Price</h3></td>
-          <td><h3>Unit Quantity</h3></td>
-          <td><h3>Total Price</h3></td>
-          <td></td>
-        </tr>
-        <tbody data-bind="foreach: cart">
-          <div id="cartItemsBar">
-            <tr>
-              <td data-bind="text: product().displayName"></td>
-              <td> $<span data-bind="text: product().salePrice"></span></td>
-              <td data-bind="text: quantity"></span></td>
-              <td> $<span data-bind="text: totalPrice().toFixed(2)"></span></td>
-              <td><button data-bind="click: $root.removeProductFromCart">Remove</button></td>             
-            </tr>
-          </div>
-        </tbody>
-      </table>
+  <div data-bind="visible: cart().length > 0">
+    <div id="cartItems"> 
+      <div id="insideCartItems"> <br>
+        <h1>Cart Items</h1>
+        <table border="0" width="100%">     
+          <tr>
+            <td><h3>Product Name</h3></td>
+            <td><h3>Unit Price</h3></td>
+            <td><h3>Unit Quantity</h3></td>
+            <td><h3>Total Price</h3></td>
+            <td></td>
+          </tr>
+          <tbody data-bind="foreach: cart">
+            <div id="cartItemsBar">
+              <tr>
+                <td data-bind="text: product().displayName"></td>
+                <td> $<span data-bind="text: product().salePrice"></span></td>
+                <td data-bind="text: quantity"></span></td>
+                <td> $<span data-bind="text: totalPrice().toFixed(2)"></span></td>
+                <td><button data-bind="click: $root.removeProductFromCart">Remove</button></td>             
+              </tr>
+            </div>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  <br>
-  <br> 
-  <div id="content"> 
-    <div id="insideCartItems"> <br>
-      <h1>Checkout Form</h1>
-      <div id="checkout">
-        <div class="checkout">
-          <p>First name:<input data-bind="value: firstName"></input></p>
-          <p>Last name:<input data-bind="value: lastName"></input></p>
-          <p>Address:<input data-bind="value: address"></input></p>
-          <p>Credit Card Type:<select data-bind="options: CCTypes, value: CCType"></select></p>
-          <p>Credit Card Number:<input data-bind="value: CCNumber" maxlength="16"></input>
-          CVC Code: <input style="width:50px;" data-bind="value: CVCCode" maxlength="3"></input></p>
-          <p>Exp Month:<select data-bind="options: months, value: CCExpMonth"></select>
-          Exp Year:<select data-bind="options: years, value: CCExpYear"></select></p>
-          <h4>Cart Total: $<span data-bind="text: cartTotal().toFixed(2)"></span></h4>
-          <br>
-          <button class="buttonCheckout" data-bind="click: checkout">Checkout</button>
-        </div>
-      </div>  
+    <br>
+    <br> 
+    <div id="content"> 
+      <div id="insideCartItems"> <br>
+        <h1>Checkout Form</h1>
+        <div id="checkout">
+          <div class="checkout">
+            <p>First name:<input data-bind="value: firstName"></input></p>
+            <p>Last name:<input data-bind="value: lastName"></input></p>
+            <p>Address:<input data-bind="value: address"></input></p>
+            <p>Credit Card Type:<select data-bind="options: CCTypes, value: CCType"></select></p>
+            <p>Credit Card Number:<input data-bind="value: CCNumber" maxlength="16"></input>
+            CVC Code: <input style="width:50px;" data-bind="value: CVCCode" maxlength="3"></input></p>
+            <p>Exp Month:<select data-bind="options: months, value: CCExpMonth"></select>
+            Exp Year:<select data-bind="options: years, value: CCExpYear"></select></p>
+            <h4>Cart Total: $<span data-bind="text: cartTotal().toFixed(2)"></span></h4>
+            <br>
+            <button class="buttonCheckout" data-bind="click: checkout">Checkout</button>
+          </div>
+        </div>  
+      </div>
     </div>
   </div>
 </div>

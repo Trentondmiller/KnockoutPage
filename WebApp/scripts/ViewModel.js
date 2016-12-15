@@ -6,14 +6,27 @@ function Product(displayName,description,id,listPrice,salePrice,primaryFullImage
   this.salePrice = salePrice;
   this.primaryFullImageUrl = ko.observable(primaryFullImageUrl);
 };
+
 function CommerceItem(product,quantity) {
   this.product = ko.observable(product);
   this.quantity = ko.observable(quantity);
   this.totalPrice = ko.observable(product.salePrice);
 }
+
 function productViewModel() {
   var self = this;
-  self.checkoutMessage = ko.observable();
+
+  $.getJSON("https://ccstore-z5ia.oracleoutsourcing.com/ccstoreui/v1/products", function(json) {
+      var jsonData = JSON.stringify(json);
+      var items = json.items;
+      var array = self.products();
+      for(var i = 0; i < items.length; i++) {
+        var imageUrl = "https://ccstore-z5ia.oracleoutsourcing.com" + items[i].primaryFullImageURL;
+        array.push(new Product(items[i].displayName, items[i].description, items[i].id, items[i].listPrice,items[i].salePrice, imageUrl));
+      }
+      self.products.valueHasMutated();
+    });
+
   self.products = ko.observableArray([]);
   self.firstName = ko.observable();
   self.lastName = ko.observable();
@@ -42,9 +55,11 @@ function productViewModel() {
     }
     self.cart.valueHasMutated();
   }
+
   self.removeProductFromCart = function(commerceItem) {
 	  self.cart.remove(commerceItem);
   }
+
   self.cartTotal = ko.computed(function() {
   		var total = 0;
 			for(var i = 0; i < self.cart().length; i++) {
@@ -52,18 +67,8 @@ function productViewModel() {
       }
       return total;
   });
-  $.getJSON("https://crossorigin.me/https://ccstore-z5ia.oracleoutsourcing.com/ccstoreui/v1/products", function(json) {
-    var jsonData = JSON.stringify(json);
-    var items = json.items;
-    var array = self.products();
-    for(var i = 0; i < items.length; i++) {
-      var imageUrl = "https://ccstore-z5ia.oracleoutsourcing.com" + items[i].primaryFullImageURL;
-      array.push(new Product(items[i].displayName, items[i].description, items[i].id, items[i].listPrice,items[i].salePrice, imageUrl));
-    }
-    self.products.valueHasMutated();
-});
-
-    self.checkout = function() {
+  
+  self.checkout = function() {
     console.log("User checked out with credentials:");
     console.log("First Name: " + self.firstName);
     console.log("Last Name: " + self.lastName);
