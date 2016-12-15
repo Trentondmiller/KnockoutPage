@@ -79,6 +79,10 @@ function productViewModel() {
     console.log("CCExpiration Year: " + self.CCExpYear);
     console.log("CVCCode: " + self.CVCCode);
     console.log("Total Amount Paid: $" + self.cartTotal());
+    for(var i = 0; i < self.cart().length; i++) {
+        console.log("Cart Item #" + i + ": " + self.cart()[i].product().displayName);
+        console.log("Quantity: " + self.cart()[i].quantity())
+    }
     self.cart.removeAll();
     self.firstName("");
     self.lastName("");
